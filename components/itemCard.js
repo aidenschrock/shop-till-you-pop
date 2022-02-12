@@ -9,10 +9,9 @@ import {
   Grid,
   IconButton,
 } from "@mui/material";
-import apple from "../public/apple.png";
 import { useState, useEffect } from "react";
 import { Add, Remove } from "@mui/icons-material";
-import cartArray from "./cartArray";
+import { cartArray } from "../pages/cart";
 
 function ItemCard(props) {
   const [itemQuantity, setItemQuantity] = useState(0);
@@ -27,37 +26,27 @@ function ItemCard(props) {
   }, [props]);
 
   useEffect(() => {
-    for (let i = 0; i < cartArray.length; i++) {
-      if (cartArray[i].item === props.data.name) {
-        setItemQuantity(cartArray[i].quantity);
-        return;
-      }
+    const item = cartArray.find((item) => item.name === props.data.name);
+    if (item) {
+      setItemQuantity(item.quantity);
     }
   }, [itemQuantity, props.data.name]);
 
   const handleAddItem = (selectedItem) => {
-    if (
-      cartArray.filter(function (e) {
-        return e.name === selectedItem;
-      }).length > 0
-    ) {
-      let index = cartArray.findIndex((item) => item.name === selectedItem);
-
+    const index = cartArray.findIndex((item) => item.name === selectedItem);
+    if (index >= 0) {
       cartArray[index].quantity += 1;
     } else {
       props.data["quantity"] = 1;
       cartArray.push(props.data);
     }
+
     setItemQuantity(itemQuantity + 1);
   };
 
   const handleRemoveItem = (selectedItem) => {
-    if (
-      cartArray.filter(function (e) {
-        return e.name === selectedItem;
-      }).length > 0
-    ) {
-      let index = cartArray.findIndex((item) => item.name === selectedItem);
+    const index = cartArray.findIndex((item) => item.name === selectedItem);
+    if (index >= 0) {
       cartArray[index].quantity -= 1;
       if (cartArray[index].quantity === 0) {
         cartArray.splice(index, 1);

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Lottie from "react-lottie";
 import failAnimation from "../lotties/failAnimation.json";
 import passAnimation from "../lotties/passAnimation.json";
-import cartArray from "../components/cartArray";
+import { cartArray } from "../pages/cart";
 
 export default function EndGame() {
   const router = useRouter();

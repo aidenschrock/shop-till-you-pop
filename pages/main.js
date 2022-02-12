@@ -31,12 +31,12 @@ function Main() {
       >
         <Grid container sx={{ width: "90vw" }} spacing={2}>
           {productArray
-            ? productArray.map((item, index) => {
+            ? productArray.map((item) => {
                 return (
                   <ItemCard
                     gameStatus={isGameStarted}
                     gamePaused={isGamePaused}
-                    key={index}
+                    key={item.name}
                     data={item}
                   />
                 );
@@ -46,7 +46,6 @@ function Main() {
       </div>
     </div>
   );
-  return <div></div>;
 }
 
 export default Main;

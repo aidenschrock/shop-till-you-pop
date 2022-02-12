@@ -5,33 +5,22 @@ import { Typography, Button, Grid, IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
-import cartArray from "./cartArray";
+import { cartArray } from "../pages/cart";
 
 export default function CartItem(props) {
-  console.log(cartArray);
-
   const [itemQuantity, setItemQuantity] = useState(props.item.quantity);
 
   const increaseQuantity = () => {
-    if (
-      cartArray.filter(function (e) {
-        return e.name === props.item.name;
-      }).length > 0
-    ) {
-      let index = cartArray.findIndex((item) => item.name === props.item.name);
-
+    const index = cartArray.findIndex((item) => item.name === props.item.name);
+    if (index >= 0) {
       cartArray[index].quantity += 1;
       setItemQuantity(itemQuantity + 1);
     }
   };
 
   const decreaseQuantity = () => {
-    if (
-      cartArray.filter(function (e) {
-        return e.name === props.item.name;
-      }).length > 0
-    ) {
-      let index = cartArray.findIndex((item) => item.name === props.item.name);
+    const index = cartArray.findIndex((item) => item.name === props.item.name);
+    if (index >= 0) {
       cartArray[index].quantity -= 1;
       if (cartArray[index].quantity === 0) {
         cartArray.splice(index, 1);

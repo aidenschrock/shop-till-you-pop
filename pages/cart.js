@@ -2,7 +2,8 @@ import AppHeader from "../components/appHeader";
 import CartItem from "../components/cartItem";
 import { Grid, Typography, Button } from "@mui/material";
 import CheckoutDialog from "../components/confirmCheckoutDialog";
-import cartArray from "../components/cartArray";
+
+export const cartArray = [];
 
 export default function Cart() {
   return (

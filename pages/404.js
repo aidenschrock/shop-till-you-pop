@@ -7,7 +7,7 @@ function Page404() {
   return (
     <div style={style.container}>
       <Typography variant="h1">404</Typography>
-      <Typography variant="h5">Uh Oh! There's nothing here!</Typography>
+      <Typography variant="h5">Uh Oh! There&apos;s nothing here!</Typography>
       {/* <img
         style={style.image}
         src={page404Image}

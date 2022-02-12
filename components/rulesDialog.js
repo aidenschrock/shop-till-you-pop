@@ -44,9 +44,9 @@ export default function ResponsiveDialog(props) {
           <DialogContentText>
             The goal of the game is to fill your cart with as many items as
             possible before the time limit runs out without going over $100! No
-            prices are shown for the items, so you'll have to make an educated
-            guess based on your experience grocery shopping. You only have three
-            minutes, so go fast!
+            prices are shown for the items, so you&apos;ll have to make an
+            educated guess based on your experience grocery shopping. You only
+            have three minutes, so go fast!
           </DialogContentText>
           <br />
           <DialogContentText>Are you ready?</DialogContentText>

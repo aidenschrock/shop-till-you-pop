@@ -5,15 +5,39 @@ import { Typography, Button, Grid, IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import cartArray from "./cartArray";
 
-export default function CartItem() {
-  const [itemQuantity, setItemQuantity] = useState(1);
+export default function CartItem(props) {
+  console.log(cartArray);
+
+  const [itemQuantity, setItemQuantity] = useState(props.item.quantity);
 
   const increaseQuantity = () => {
-    setItemQuantity(itemQuantity + 1);
+    if (
+      cartArray.filter(function (e) {
+        return e.name === props.item.name;
+      }).length > 0
+    ) {
+      let index = cartArray.findIndex((item) => item.name === props.item.name);
+
+      cartArray[index].quantity += 1;
+      setItemQuantity(itemQuantity + 1);
+    }
   };
 
   const decreaseQuantity = () => {
+    if (
+      cartArray.filter(function (e) {
+        return e.name === props.item.name;
+      }).length > 0
+    ) {
+      let index = cartArray.findIndex((item) => item.name === props.item.name);
+      cartArray[index].quantity -= 1;
+      if (cartArray[index].quantity === 0) {
+        cartArray.splice(index, 1);
+      }
+    }
+
     if (itemQuantity > 0) {
       setItemQuantity(itemQuantity - 1);
     }
@@ -22,15 +46,16 @@ export default function CartItem() {
   return (
     <Grid style={{ width: "100%" }} item>
       <div style={{ display: "flex" }}>
-        <Image src={apple} alt="apple" width={150} height={150} />
+        <Image src={props.item.image} alt="product" width={150} height={150} />
         <div style={{ margin: "2%" }}>
-          <Typography variant="h6">Item Title</Typography>
-          <Typography variant="subtitle2">Item Description</Typography>
+          <Typography variant="h6">{props.item.name}</Typography>
           <Typography variant="subtitle1">{itemQuantity}</Typography>
         </div>
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <Button endIcon={<ClearIcon />}>Remove</Button>
+        <Button onClick={decreaseQuantity} endIcon={<ClearIcon />}>
+          Remove
+        </Button>
       </div>
     </Grid>
   );

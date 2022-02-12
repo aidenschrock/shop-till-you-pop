@@ -4,11 +4,15 @@ import PauseIcon from "@mui/icons-material/Pause";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useRouter } from "next/router";
 
-export default function Timer() {
+export default function Timer(props) {
   const router = useRouter();
 
-  const [seconds, setSeconds] = useState(5);
+  const [seconds, setSeconds] = useState(25);
   const [isActive, setIsActive] = useState(true);
+
+  useEffect(() => {
+    props.gameStatus(!isActive);
+  }, [props, isActive]);
 
   function toggle() {
     setIsActive(!isActive);
@@ -37,7 +41,6 @@ export default function Timer() {
       }, 1000);
     } else if (!isActive && seconds !== 10) {
       clearInterval(interval);
-      router.push("/endgame");
     } else if (seconds === 0) {
       router.push("/endgame");
     }

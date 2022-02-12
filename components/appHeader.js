@@ -23,50 +23,9 @@ import Timer from "./timer";
 import { useRouter } from "next/router";
 import ComboBox from "./search";
 
-const pages = ["All", "Meat", "Produce", "Dairy"];
 const settings = ["Profile", "Logout"];
 
-// const Search = styled("div")(({ theme }) => ({
-//   position: "relative",
-//   borderRadius: theme.shape.borderRadius,
-//   backgroundColor: alpha(theme.palette.common.white, 0.15),
-//   "&:hover": {
-//     backgroundColor: alpha(theme.palette.common.white, 0.25),
-//   },
-//   marginRight: theme.spacing(2),
-//   marginLeft: 0,
-//   width: "100%",
-//   [theme.breakpoints.up("sm")]: {
-//     marginLeft: theme.spacing(3),
-//     width: "auto",
-//   },
-// }));
-
-// const SearchIconWrapper = styled("div")(({ theme }) => ({
-//   padding: theme.spacing(0, 2),
-//   height: "100%",
-//   position: "absolute",
-//   pointerEvents: "none",
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "center",
-// }));
-
-// const StyledInputBase = styled(InputBase)(({ theme }) => ({
-//   color: "inherit",
-//   "& .MuiInputBase-input": {
-//     padding: theme.spacing(1, 1, 1, 0),
-//     // vertical padding + font size from searchIcon
-//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-//     transition: theme.transitions.create("width"),
-//     width: "100%",
-//     [theme.breakpoints.up("md")]: {
-//       width: "20ch",
-//     },
-//   },
-// }));
-
-function AppHeader() {
+function AppHeader(props) {
   const router = useRouter();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -88,11 +47,21 @@ function AppHeader() {
   };
 
   const [isGameStarted, setIsGameStarted] = useState(false);
+  const [isGamePaused, setIsGamePaused] = useState(false);
 
-  const updateGameStatus = (data) => {
+  const updateGameStarted = (data) => {
     setIsGameStarted(data);
+    props.gameStatus(data);
   };
 
+  const updateGamePaused = (data) => {
+    setIsGamePaused(data);
+    props.gamePaused(data);
+  };
+
+  const navigate = (category) => {
+    router.push(`/main?category=${category}`);
+  };
   return (
     <AppBar sx={{ bgcolor: "#1f1f1f" }} position="static">
       <Container maxWidth="xl">
@@ -105,7 +74,7 @@ function AppHeader() {
           >
             STYP
           </Typography> */}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               onClick={handleOpenNavMenu}
               size="large"
@@ -131,11 +100,34 @@ function AppHeader() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem
+                onClick={() => {
+                  router.push("/main");
+                }}
+              >
+                <Typography textAlign="center">All</Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate("meat");
+                }}
+              >
+                <Typography textAlign="center">Meat</Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate("produce");
+                }}
+              >
+                <Typography textAlign="center">Produce</Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate("dairy");
+                }}
+              >
+                <Typography textAlign="center">Dairy</Typography>
+              </MenuItem>
             </Menu>
           </Box>
 
@@ -148,40 +140,85 @@ function AppHeader() {
             STYP
           </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              onClick={() => {
+                router.push("/main");
+              }}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              All
+            </Button>
+            <Button
+              onClick={() => {
+                navigate("meat");
+              }}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Meat
+            </Button>
+            <Button
+              onClick={() => {
+                navigate("produce");
+              }}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Produce
+            </Button>
+            <Button
+              onClick={() => {
+                navigate("dairy");
+              }}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Dairy
+            </Button>
           </Box>
-          {/* <Search sx={{ display: { md: "flex", xs: "none" } }}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search> */}
-          {/* <ComboBox /> */}
-          <Button
-            onClick={() => router.push("/cart")}
-            sx={{ color: "white", margin: "1%" }}
-            startIcon={<ShoppingCartIcon />}
-          >
-            Cart
-          </Button>
-          {!isGameStarted ? (
-            <ResponsiveDialog gameStatus={updateGameStatus} />
-          ) : (
-            <Timer />
-          )}
 
-          <Box sx={{ flexGrow: 0, marginLeft: "1%" }}>
+          {/* <ComboBox /> */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flex: 1,
+              justifyContent: "right",
+              width: { xs: "100%" },
+            }}
+          >
+            <Button
+              onClick={() => router.push("/cart")}
+              sx={{ color: "white", margin: "1%" }}
+              startIcon={<ShoppingCartIcon />}
+            >
+              Cart
+            </Button>
+            {!isGameStarted ? (
+              <ResponsiveDialog gameStatus={updateGameStarted} />
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+
+                  justifyContent: "right",
+                }}
+              >
+                <Typography
+                  sx={{
+                    display: { xs: "none", sm: "flex" },
+                    width: { sm: "6em" },
+                  }}
+                  variant="subtitle2"
+                  noWrap={true}
+                >
+                  Limit: $100
+                </Typography>
+
+                <Timer gameStatus={updateGamePaused} />
+              </div>
+            )}
+          </div>
+
+          {/* <Box sx={{ flexGrow: 0, marginLeft: "1%" }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar />
@@ -209,7 +246,7 @@ function AppHeader() {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>

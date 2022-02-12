@@ -2,6 +2,8 @@ import { Typography, Button } from "@mui/material";
 import { useRouter } from "next/router";
 
 function Page404() {
+  const router = useRouter();
+
   return (
     <div style={style.container}>
       <Typography variant="h1">404</Typography>

@@ -2,8 +2,7 @@ import AppHeader from "../components/appHeader";
 import CartItem from "../components/cartItem";
 import { Grid, Typography, Button } from "@mui/material";
 import CheckoutDialog from "../components/confirmCheckoutDialog";
-
-const cartArray = ["item1", "item2", "item3", "item4"];
+import cartArray from "../components/cartArray";
 
 export default function Cart() {
   return (
@@ -17,8 +16,8 @@ export default function Cart() {
         }}
       >
         <Grid container sx={{ width: "60vw" }} spacing={2} direction="column">
-          {cartArray.map((item, index) => {
-            return <CartItem key={index} data={item} />;
+          {cartArray.map((data, index) => {
+            return <CartItem key={index} item={data} />;
           })}
         </Grid>
         <div>

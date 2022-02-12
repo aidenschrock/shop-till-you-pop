@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css";
 import { Typography, Button } from "@mui/material";
 import { useRouter } from "next/router";
 import Lottie from "react-lottie";
-import animation from "../lotties/home-animation.json";
+import animation from "../lotties/homeAnimation.json";
 
 export default function Home() {
   const router = useRouter();

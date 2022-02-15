@@ -1,5 +1,4 @@
 import { useState } from "react";
-import apple from "../public/apple.png";
 import Image from "next/image";
 import { Typography, Button, Grid, IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";

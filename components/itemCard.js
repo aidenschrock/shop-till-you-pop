@@ -34,8 +34,10 @@ function ItemCard(props) {
 
   const handleAddItem = (selectedItem) => {
     const index = cartArray.findIndex((item) => item.name === selectedItem);
-    if (index >= 0) {
+    if (index >= 0 && cartArray[index].quantity < 10) {
       cartArray[index].quantity += 1;
+    } else if (index >= 0 && cartArray[index].quantity === 10) {
+      return;
     } else {
       props.data["quantity"] = 1;
       cartArray.push(props.data);
@@ -61,7 +63,12 @@ function ItemCard(props) {
   return (
     <Grid item xs={6} md={2}>
       <Card sx={{ margin: "2%" }} variant="elevation">
-        <CardContent sx={{ justifyContent: "center", width: "100%" }}>
+        <CardContent
+          sx={{
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
           <Image
             src={props.data.image}
             alt="item image"
@@ -103,6 +110,7 @@ function ItemCard(props) {
               </div>
 
               <IconButton
+                disabled={itemQuantity >= 10}
                 onClick={() => {
                   handleAddItem(props.data.name);
                 }}

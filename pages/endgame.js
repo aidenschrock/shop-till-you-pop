@@ -117,7 +117,7 @@ export default function EndGame() {
           {didPass ? <div>Your score is {score}</div> : null}
         </Typography>
         <div>
-          {!didPass
+          {!didPass && total > 0
             ? "You overcharged your card and now you're being hunted by the FBI. "
             : null}
         </div>

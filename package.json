@@ -12,6 +12,7 @@
     "@mui/icons-material": "^5.4.1",
     "@mui/material": "^5.4.1",
     "firebase": "^9.6.6",
+    "mui-treasury": "^0.1.5-alpha.3",
     "next": "^12.0.8",
     "next-auth": "^4.2.1",
     "react": "17.0.2",

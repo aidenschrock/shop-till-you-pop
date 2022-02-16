@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/router";
+import { cartArray } from "../pages/cart";
 
 export default function CheckoutDialog(props) {
   const router = useRouter();
@@ -26,9 +27,8 @@ export default function CheckoutDialog(props) {
     setOpen(false);
   };
 
-  const startGame = () => {
-    // props.gameStatus(true);
-    handleClose();
+  const endGame = () => {
+    router.push("/endgame");
   };
 
   return (
@@ -52,7 +52,7 @@ export default function CheckoutDialog(props) {
           <Button autoFocus onClick={handleClose}>
             Cancel
           </Button>
-          <Button onClick={() => router.push("/endgame")} autoFocus>
+          <Button onClick={endGame} autoFocus>
             Checkout
           </Button>
         </DialogActions>

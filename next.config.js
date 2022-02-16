@@ -9,4 +9,8 @@ module.exports = {
       "m.media-amazon.com",
     ],
   },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
 };

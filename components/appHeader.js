@@ -29,13 +29,9 @@ function AppHeader(props) {
   const router = useRouter();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
@@ -46,8 +42,8 @@ function AppHeader(props) {
     setAnchorElUser(null);
   };
 
-  const [isGameStarted, setIsGameStarted] = useState(false);
-  const [isGamePaused, setIsGamePaused] = useState(false);
+  const [isGameStarted, setIsGameStarted] = useState();
+  const [isGamePaused, setIsGamePaused] = useState();
 
   const updateGameStarted = (data) => {
     setIsGameStarted(data);
@@ -66,19 +62,12 @@ function AppHeader(props) {
     <AppBar sx={{ bgcolor: "#1f1f1f" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
-            STYP
-          </Typography> */}
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               onClick={handleOpenNavMenu}
               size="large"
               color="inherit"
+              aria-label="Toggle menu"
             >
               <MenuIcon />
             </IconButton>
@@ -130,15 +119,6 @@ function AppHeader(props) {
               </MenuItem>
             </Menu>
           </Box>
-
-          {/* <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            STYP
-          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
               onClick={() => {
@@ -217,36 +197,6 @@ function AppHeader(props) {
               </div>
             )}
           </div>
-
-          {/* <Box sx={{ flexGrow: 0, marginLeft: "1%" }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>

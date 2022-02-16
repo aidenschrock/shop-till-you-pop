@@ -2,13 +2,26 @@ import AppHeader from "../components/appHeader";
 import CartItem from "../components/cartItem";
 import { Grid, Typography, Button } from "@mui/material";
 import CheckoutDialog from "../components/confirmCheckoutDialog";
+import { useState } from "react";
+import Head from "next/head";
 
 export const cartArray = [];
 
 export default function Cart() {
+  const [isGameStarted, setIsGameStarted] = useState();
+  const [isGamePaused, setIsGamePaused] = useState();
+
   return (
     <div>
-      <AppHeader />
+      <Head>
+        <title>Cart</title>
+        <meta
+          name="description"
+          content="View your shopping cart and checkout"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <AppHeader gameStatus={setIsGameStarted} gamePaused={setIsGamePaused} />
       <div
         style={{
           display: "flex",

@@ -40,7 +40,7 @@ export default function Home() {
         </div>
 
         <Button onClick={() => router.push("/main")} variant="outlined">
-          Continue as Guest
+          Enter App
         </Button>
       </main>
 
